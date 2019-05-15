@@ -1,0 +1,90 @@
+<!-- <div id="id01" class="modal"> -->
+  <head>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="515401066986-023ammab221c0icf55gpsioqi401sh40.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
+  </head>
+  <form class="modal-content animate" [hidden]="submitted" [formGroup]="loginForm" novalidate (ngSubmit)="onLogin()" action="/action_page.php">
+  
+    <div class="container">
+      <label for="email" class="label">Email Id</label>
+      <input id="email" type="text" class="input"  formControlName="email" [(ngModel)]="loginAccount.email">
+    </div>
+      <div *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)" class="alert alert-danger">
+        <div *ngIf="loginForm.controls['email'].errors.required">
+            Email is required.
+      </div>
+      <div *ngIf="loginForm.controls['email'].errors.pattern">
+            <!--  [(a-z),(A-Z),(0-9)@gmail.com]  -->
+            Email id pattern should be like this [*@gmail.com]
+      </div>
+      </div>
+      <div class="container">
+      <label for="pass" class="label">Password</label>
+      <input id="pass" type="password" class="input" formControlName="password" [(ngModel)]="loginAccount.password">
+      <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)" class="alert alert-danger">
+        <div *ngIf="loginForm.controls['password'].errors.required">
+            password is required.
+        </div>
+    
+        <div *ngIf="loginForm.controls['password'].errors.maxlength">
+                    Maximum characters for password is 15
+        </div>
+        <div *ngIf="loginForm.controls['password'].errors.minlength">
+                    Minimum characters for password is 6
+        </div>
+    
+    </div> 
+      </div>
+    <button class="button" [disabled]="!loginForm.valid" type="submit" >Sign In</button>
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+
+    <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      }
+    </script> 
+    
+    <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+  
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+</div>
+
+
+
+<div [hidden]="!submitted" > 
+  <!--    <h4>You successfully logged in!  {{response}}</h4> -->
+    <!--  <button  class="btn btn-success" (click)="onProduct()">Product</button> -->
+    <div *ngIf="response" class="position">
+         You successfully logged in!  
+         <br>
+   <button  class="btn btn-success" (click)="onLoginPage()">Continue Browsing</button>
+        
+     
+       </div>
+       <div *ngIf="!response" class="position">
+          <h6>Invalid credentails</h6><br>
+
+          <button  class="btn btn-success" (click)="onProduct()">retry</button>
+
+           </div>
+           
+   
+ </div> 
