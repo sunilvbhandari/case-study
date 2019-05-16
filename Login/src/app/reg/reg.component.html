@@ -1,0 +1,100 @@
+<!-- <div id="id02" class="modal"> -->
+  <app-header></app-header>
+  <form class="modal-content animate" [hidden]="submitted" [formGroup]="regForm" novalidate (ngSubmit)="onRegiter()">
+     <!-- <div class="imggroup">
+      <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+      
+    </div> -->
+    <div class="group">
+    <label for="userName" class="label"> UserName</label>
+    <input id="userName"  class="input" type="text" formControlName="userName" [(ngModel)]="userAccount.userName">
+    
+</div>
+
+<div *ngIf="regForm.controls['userName'].invalid && (regForm.controls['userName'].dirty || regForm.controls['userName'].touched)" class="alert alert-danger">
+<div *ngIf="regForm.controls['userName'].errors.required">
+<b>  Username is required.</b>
+</div>
+<div *ngIf="regForm.controls['userName'].errors.maxlength">
+Maximum characters required for username is 20
+</div>
+<div *ngIf="regForm.controls['userName'].errors.minlength">
+Minimum characters required for username is 3
+</div>
+</div>
+
+    <div class="group">
+      <label for="email" class="label">Email Id</label>
+      <input id="email" type="text" class="input"  formControlName="email" [(ngModel)]="userAccount.email">
+    </div>
+      <div *ngIf="regForm.controls['email'].invalid && (regForm.controls['email'].dirty || regForm.controls['email'].touched)" class="alert alert-danger">
+        <div *ngIf="regForm.controls['email'].errors.required">
+            Email is required.
+      </div>
+      <div *ngIf="regForm.controls['email'].errors.pattern">
+            <!--  [(a-z),(A-Z),(0-9)@gmail.com]  -->
+            Email id pattern should be like this [*@gmail.com]
+      </div>
+      </div>
+                            <div class="group">
+                            <label for="mobileNo" class="label"> Phone Number</label>
+                            <input id="mobileNo" class="input" type="text" formControlName="mobileNo" [(ngModel)]="userAccount.mobileNo">
+                            
+                        </div>
+                        
+        
+                        <div *ngIf="regForm.controls['mobileNo'].invalid && (regForm.controls['mobileNo'].dirty || regForm.controls['mobileNo'].touched)" class="alert alert-danger">
+                            <div *ngIf="regForm.controls['mobileNo'].errors.required">
+                            Phone Number  is required.
+                          </div>
+                          <div *ngIf="regForm.controls['mobileNo'].errors.pattern">
+                            Phone number should start with 9/8/7/6 and of 10 digits
+                            </div>
+                          </div>
+                          <div class="group">
+                          <label for="pass" class="label">Password</label>
+                          <input id="pass" type="password" class="input" formControlName="password" [(ngModel)]="userAccount.password">
+                        </div>
+                              
+                        
+              
+                                <div *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].dirty || regForm.controls['password'].touched)" class="alert alert-danger">
+                                    <div *ngIf="regForm.controls['password'].errors.required">
+                                    Password  is required.
+                                  </div>
+                                  <div *ngIf="regForm.controls['password'].errors.maxlength">
+                                    Maximum characters for password is 15
+                                    </div>
+                                    <div *ngIf="regForm.controls['password'].errors.minlength">
+                                    Minimum characters for password is 6
+                                    </div>
+                                    <div *ngIf="regForm.controls['password'].errors.pattern">
+                                    Password should comprised of atleast one lowercase, uppercase and number
+                                    </div>
+                                  </div>
+                                  <div class="group">
+                                  <label for="cpass" class="label"> Confirm Password</label>
+                                  <input id="cpass" type="password" class="input" data-type="password"  [class.is-invalid]="regForm.errors?.misMatch" formControlName="passwordConfirm" [(ngModel)]="userAccount.passwordConfirm">
+                                  <small class="text-danger" *ngIf="regForm.errors?.misMatch">Passwords do not match</small>
+                                        </div>
+          
+          
+                                        <div *ngIf="regForm.controls['passwordConfirm'].invalid && (regForm.controls['passwordConfirm'].dirty || regForm.controls['passwordConfirm'].touched)" class="alert alert-danger">
+                                            <div *ngIf="regForm.controls['passwordConfirm'].errors.required">
+                                            Confirm Password is required.
+                                            </div>
+                                          </div>
+     
+      
+<div>
+    <button class="button" [disabled]="!regForm.valid" type="submit">Register</button>
+    </div>
+</form>
+
+  
+	<div [hidden]="!submitted">
+    <h4>You submitted successfully! Welcome {{response.userName}}</h4>
+    <button class="btn btn-success" (click)="onLogin()">Login</button>
+  </div>  
+
+  <app-footer></app-footer>

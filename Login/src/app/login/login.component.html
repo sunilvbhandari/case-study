@@ -1,0 +1,73 @@
+<app-header></app-header> 
+
+
+
+<!--  <div id="id01" class="modal"> -->
+  
+  <form class="modal-content animate" [hidden]="submitted" [formGroup]="loginForm" novalidate (ngSubmit)="onLogin()" action="/action_page.php">
+  
+    <div class="group">
+      <label for="email" class="label">Email Id</label>
+      <input id="email" type="text" class="input"  formControlName="email" [(ngModel)]="loginAccount.email">
+    </div>
+      <div *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)" class="alert alert-danger">
+        <div *ngIf="loginForm.controls['email'].errors.required">
+            Email is required.
+      </div>
+      <div *ngIf="loginForm.controls['email'].errors.pattern">
+            <!--  [(a-z),(A-Z),(0-9)@gmail.com]  -->
+            Email id pattern should be like this [*@gmail.com]
+      </div>
+      </div>
+      <div class="group">
+      <label for="pass" class="label">Password</label>
+      <input id="pass" type="password" class="input" formControlName="password" [(ngModel)]="loginAccount.password">
+      <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)" class="alert alert-danger">
+        <div *ngIf="loginForm.controls['password'].errors.required">
+            password is required.
+        </div>
+    
+        <div *ngIf="loginForm.controls['password'].errors.maxlength">
+                    Maximum characters for password is 15
+        </div>
+        <div *ngIf="loginForm.controls['password'].errors.minlength">
+                    Minimum characters for password is 6
+        </div>
+    
+    </div> 
+      </div>
+    <button class="button" [disabled]="!loginForm.valid" type="submit" >Sign In</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+  
+
+    <div class="group" style="background-color:#f1f1f1">
+      <button type="button" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+</div>
+
+</form>
+
+<div [hidden]="!submitted" > 
+  <!--    <h4>You successfully logged in!  {{response}}</h4> -->
+    <!--  <button  class="btn btn-success" (click)="onProduct()">Product</button> -->
+    <div *ngIf="response" class="position">
+         You successfully logged in!  
+         <br>
+   <button  class="btn btn-success" (click)="onLoginPage()">Continue Browsing</button>
+        
+     
+       </div>
+       <div *ngIf="!response" class="position">
+          <h6>Invalid credentails</h6><br>
+
+          <button  class="btn btn-success" (click)="onProduct()">retry</button>
+
+           </div>
+           
+   
+ </div> 
+
+
+ <app-footer></app-footer>
